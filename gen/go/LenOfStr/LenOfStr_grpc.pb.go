@@ -19,7 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
+<<<<<<< HEAD
 	Compute_StrLen_FullMethodName = "/example.compute/StrLen"
+=======
+<<<<<<< HEAD
+	Compute_StrLen_FullMethodName = "/example.Compute/StrLen"
+>>>>>>> отсюда
 )
 
 // ComputeClient is the client API for Compute service.
@@ -41,12 +46,43 @@ func (c *computeClient) StrLen(ctx context.Context, in *StrRequest, opts ...grpc
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(LenResponse)
 	err := c.cc.Invoke(ctx, Compute_StrLen_FullMethodName, in, out, cOpts...)
+<<<<<<< HEAD
+=======
+=======
+	Greeter_StrLen_FullMethodName = "/example.Greeter/StrLen"
+)
+
+// GreeterClient is the client API for Greeter service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type GreeterClient interface {
+	StrLen(ctx context.Context, in *StrRequest, opts ...grpc.CallOption) (*LenResponse, error)
+}
+
+type greeterClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewGreeterClient(cc grpc.ClientConnInterface) GreeterClient {
+	return &greeterClient{cc}
+}
+
+func (c *greeterClient) StrLen(ctx context.Context, in *StrRequest, opts ...grpc.CallOption) (*LenResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(LenResponse)
+	err := c.cc.Invoke(ctx, Greeter_StrLen_FullMethodName, in, out, cOpts...)
+>>>>>>> whatever
+>>>>>>> отсюда
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> отсюда
 // ComputeServer is the server API for Compute service.
 // All implementations must embed UnimplementedComputeServer
 // for forward compatibility.
@@ -56,10 +92,28 @@ type ComputeServer interface {
 }
 
 // UnimplementedComputeServer must be embedded to have
+<<<<<<< HEAD
+=======
+=======
+// GreeterServer is the server API for Greeter service.
+// All implementations must embed UnimplementedGreeterServer
+// for forward compatibility.
+type GreeterServer interface {
+	StrLen(context.Context, *StrRequest) (*LenResponse, error)
+	mustEmbedUnimplementedGreeterServer()
+}
+
+// UnimplementedGreeterServer must be embedded to have
+>>>>>>> whatever
+>>>>>>> отсюда
 // forward compatible implementations.
 //
 // NOTE: this should be embedded by value instead of pointer to avoid a nil
 // pointer dereference when methods are called.
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> отсюда
 type UnimplementedComputeServer struct{}
 
 func (UnimplementedComputeServer) StrLen(context.Context, *StrRequest) (*LenResponse, error) {
@@ -77,21 +131,60 @@ type UnsafeComputeServer interface {
 
 func RegisterComputeServer(s grpc.ServiceRegistrar, srv ComputeServer) {
 	// If the following call pancis, it indicates UnimplementedComputeServer was
+<<<<<<< HEAD
+=======
+=======
+type UnimplementedGreeterServer struct{}
+
+func (UnimplementedGreeterServer) StrLen(context.Context, *StrRequest) (*LenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method StrLen not implemented")
+}
+func (UnimplementedGreeterServer) mustEmbedUnimplementedGreeterServer() {}
+func (UnimplementedGreeterServer) testEmbeddedByValue()                 {}
+
+// UnsafeGreeterServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to GreeterServer will
+// result in compilation errors.
+type UnsafeGreeterServer interface {
+	mustEmbedUnimplementedGreeterServer()
+}
+
+func RegisterGreeterServer(s grpc.ServiceRegistrar, srv GreeterServer) {
+	// If the following call pancis, it indicates UnimplementedGreeterServer was
+>>>>>>> whatever
+>>>>>>> отсюда
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
 	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
 		t.testEmbeddedByValue()
 	}
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> отсюда
 	s.RegisterService(&Compute_ServiceDesc, srv)
 }
 
 func _Compute_StrLen_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+<<<<<<< HEAD
+=======
+=======
+	s.RegisterService(&Greeter_ServiceDesc, srv)
+}
+
+func _Greeter_StrLen_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+>>>>>>> whatever
+>>>>>>> отсюда
 	in := new(StrRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> отсюда
 		return srv.(ComputeServer).StrLen(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
@@ -100,20 +193,56 @@ func _Compute_StrLen_Handler(srv interface{}, ctx context.Context, dec func(inte
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ComputeServer).StrLen(ctx, req.(*StrRequest))
+<<<<<<< HEAD
+=======
+=======
+		return srv.(GreeterServer).StrLen(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Greeter_StrLen_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GreeterServer).StrLen(ctx, req.(*StrRequest))
+>>>>>>> whatever
+>>>>>>> отсюда
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> отсюда
 // Compute_ServiceDesc is the grpc.ServiceDesc for Compute service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Compute_ServiceDesc = grpc.ServiceDesc{
+<<<<<<< HEAD
 	ServiceName: "example.compute",
+=======
+	ServiceName: "example.Compute",
+>>>>>>> отсюда
 	HandlerType: (*ComputeServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "StrLen",
 			Handler:    _Compute_StrLen_Handler,
+<<<<<<< HEAD
+=======
+=======
+// Greeter_ServiceDesc is the grpc.ServiceDesc for Greeter service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var Greeter_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "example.Greeter",
+	HandlerType: (*GreeterServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "StrLen",
+			Handler:    _Greeter_StrLen_Handler,
+>>>>>>> whatever
+>>>>>>> отсюда
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

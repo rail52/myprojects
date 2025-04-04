@@ -4,7 +4,11 @@ package example;
 
 option go_package = "github.com/rail52/myprojects/LenOfStr";
 
+<<<<<<< HEAD
 service compute {
+=======
+service Compute {
+>>>>>>> отсюда
   rpc StrLen (StrRequest) returns (LenResponse) {}
 }
 
