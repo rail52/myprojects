@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package example;
+
+option go_package = "github.com/rail52/myprojects/LenOfStr";
+
+service Greeter {
+  rpc StrLen (StrRequest) returns (LenResponse) {}
+}
+
+message StrRequest {
+  string Str = 1;
+}
+
+message LenResponse {
+  int64 Len = 1;
+}
