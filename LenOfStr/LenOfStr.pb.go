@@ -119,15 +119,7 @@ const file_LenOfStr_LenOfStr_proto_rawDesc = "" +
 	"\x03Str\x18\x01 \x01(\tR\x03Str\"\x1f\n" +
 	"\vLenResponse\x12\x10\n" +
 	"\x03Len\x18\x01 \x01(\x03R\x03Len2@\n" +
-<<<<<<< HEAD
 	"\acompute\x125\n" +
-=======
-<<<<<<< HEAD
-	"\aCompute\x125\n" +
-=======
-	"\aGreeter\x125\n" +
->>>>>>> whatever
->>>>>>> отсюда
 	"\x06StrLen\x12\x13.example.StrRequest\x1a\x14.example.LenResponse\"\x00B'Z%github.com/rail52/myprojects/LenOfStrb\x06proto3"
 
 var (
@@ -148,18 +140,8 @@ var file_LenOfStr_LenOfStr_proto_goTypes = []any{
 	(*LenResponse)(nil), // 1: example.LenResponse
 }
 var file_LenOfStr_LenOfStr_proto_depIdxs = []int32{
-<<<<<<< HEAD
 	0, // 0: example.compute.StrLen:input_type -> example.StrRequest
 	1, // 1: example.compute.StrLen:output_type -> example.LenResponse
-=======
-<<<<<<< HEAD
-	0, // 0: example.Compute.StrLen:input_type -> example.StrRequest
-	1, // 1: example.Compute.StrLen:output_type -> example.LenResponse
-=======
-	0, // 0: example.Greeter.StrLen:input_type -> example.StrRequest
-	1, // 1: example.Greeter.StrLen:output_type -> example.LenResponse
->>>>>>> whatever
->>>>>>> отсюда
 	1, // [1:2] is the sub-list for method output_type
 	0, // [0:1] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
