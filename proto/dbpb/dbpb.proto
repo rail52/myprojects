@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package example;
 
-option go_package = "github.com/rail52/myprojects/postgrespb";
+option go_package = "github.com/rail52/myprojects/dbpb";
 
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";

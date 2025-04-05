@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v5.29.3
-// source: postgrespb/postgrespb.proto
+// source: dbpb/dbpb.proto
 
-package postgrespb
+package dbpb
 
 import (
 	context "context"
@@ -280,5 +280,5 @@ var Postgres_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "postgrespb/postgrespb.proto",
+	Metadata: "dbpb/dbpb.proto",
 }
