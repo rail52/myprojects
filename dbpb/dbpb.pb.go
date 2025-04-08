@@ -391,12 +391,12 @@ const file_dbpb_dbpb_proto_rawDesc = "" +
 	"\x11DeleteTaskRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\"#\n" +
 	"\x11MarkAsDoneRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id2\xec\x02\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id2\xeb\x02\n" +
 	"\bPostgres\x129\n" +
 	"\n" +
 	"CreateTask\x12\x1a.example.CreateTaskRequest\x1a\r.example.Task\"\x00\x123\n" +
-	"\aGetTask\x12\x17.example.GetTaskRequest\x1a\r.example.Task\"\x00\x126\n" +
-	"\bGetTasks\x12\x17.example.GetTaskRequest\x1a\r.example.Task\"\x000\x01\x129\n" +
+	"\aGetTask\x12\x17.example.GetTaskRequest\x1a\r.example.Task\"\x00\x125\n" +
+	"\bGetTasks\x12\x16.google.protobuf.Empty\x1a\r.example.Task\"\x000\x01\x129\n" +
 	"\n" +
 	"UpdateTask\x12\x1a.example.UpdateTaskRequest\x1a\r.example.Task\"\x00\x12B\n" +
 	"\n" +
@@ -432,7 +432,7 @@ var file_dbpb_dbpb_proto_depIdxs = []int32{
 	6, // 1: example.Task.updated_at:type_name -> google.protobuf.Timestamp
 	1, // 2: example.Postgres.CreateTask:input_type -> example.CreateTaskRequest
 	2, // 3: example.Postgres.GetTask:input_type -> example.GetTaskRequest
-	2, // 4: example.Postgres.GetTasks:input_type -> example.GetTaskRequest
+	7, // 4: example.Postgres.GetTasks:input_type -> google.protobuf.Empty
 	3, // 5: example.Postgres.UpdateTask:input_type -> example.UpdateTaskRequest
 	4, // 6: example.Postgres.DeleteTask:input_type -> example.DeleteTaskRequest
 	5, // 7: example.Postgres.MarkAsDone:input_type -> example.MarkAsDoneRequest

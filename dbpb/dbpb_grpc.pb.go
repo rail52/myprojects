@@ -37,7 +37,7 @@ type PostgresClient interface {
 	// Получить задачу по IP
 	GetTask(ctx context.Context, in *GetTaskRequest, opts ...grpc.CallOption) (*Task, error)
 	// Получение всех задач
-	GetTasks(ctx context.Context, in *GetTaskRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Task], error)
+	GetTasks(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Task], error)
 	// обновить задачу
 	UpdateTask(ctx context.Context, in *UpdateTaskRequest, opts ...grpc.CallOption) (*Task, error)
 	// Удалить задачу
@@ -74,13 +74,13 @@ func (c *postgresClient) GetTask(ctx context.Context, in *GetTaskRequest, opts .
 	return out, nil
 }
 
-func (c *postgresClient) GetTasks(ctx context.Context, in *GetTaskRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Task], error) {
+func (c *postgresClient) GetTasks(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Task], error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	stream, err := c.cc.NewStream(ctx, &Postgres_ServiceDesc.Streams[0], Postgres_GetTasks_FullMethodName, cOpts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &grpc.GenericClientStream[GetTaskRequest, Task]{ClientStream: stream}
+	x := &grpc.GenericClientStream[emptypb.Empty, Task]{ClientStream: stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -132,7 +132,7 @@ type PostgresServer interface {
 	// Получить задачу по IP
 	GetTask(context.Context, *GetTaskRequest) (*Task, error)
 	// Получение всех задач
-	GetTasks(*GetTaskRequest, grpc.ServerStreamingServer[Task]) error
+	GetTasks(*emptypb.Empty, grpc.ServerStreamingServer[Task]) error
 	// обновить задачу
 	UpdateTask(context.Context, *UpdateTaskRequest) (*Task, error)
 	// Удалить задачу
@@ -155,7 +155,7 @@ func (UnimplementedPostgresServer) CreateTask(context.Context, *CreateTaskReques
 func (UnimplementedPostgresServer) GetTask(context.Context, *GetTaskRequest) (*Task, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTask not implemented")
 }
-func (UnimplementedPostgresServer) GetTasks(*GetTaskRequest, grpc.ServerStreamingServer[Task]) error {
+func (UnimplementedPostgresServer) GetTasks(*emptypb.Empty, grpc.ServerStreamingServer[Task]) error {
 	return status.Errorf(codes.Unimplemented, "method GetTasks not implemented")
 }
 func (UnimplementedPostgresServer) UpdateTask(context.Context, *UpdateTaskRequest) (*Task, error) {
@@ -225,11 +225,11 @@ func _Postgres_GetTask_Handler(srv interface{}, ctx context.Context, dec func(in
 }
 
 func _Postgres_GetTasks_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(GetTaskRequest)
+	m := new(emptypb.Empty)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(PostgresServer).GetTasks(m, &grpc.GenericServerStream[GetTaskRequest, Task]{ServerStream: stream})
+	return srv.(PostgresServer).GetTasks(m, &grpc.GenericServerStream[emptypb.Empty, Task]{ServerStream: stream})
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.

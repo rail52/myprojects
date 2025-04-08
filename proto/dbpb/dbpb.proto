@@ -15,7 +15,7 @@ service Postgres {
   rpc GetTask (GetTaskRequest) returns (Task) {}  
 
   // Получение всех задач
-  rpc GetTasks (GetTaskRequest) returns (stream Task) {}  
+  rpc GetTasks (google.protobuf.Empty) returns (stream Task) {}  
 
   // обновить задачу
   rpc UpdateTask(UpdateTaskRequest) returns (Task) {}
