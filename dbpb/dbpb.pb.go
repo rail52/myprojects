@@ -391,11 +391,12 @@ const file_dbpb_dbpb_proto_rawDesc = "" +
 	"\x11DeleteTaskRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\"#\n" +
 	"\x11MarkAsDoneRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id2\xb4\x02\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id2\xec\x02\n" +
 	"\bPostgres\x129\n" +
 	"\n" +
 	"CreateTask\x12\x1a.example.CreateTaskRequest\x1a\r.example.Task\"\x00\x123\n" +
-	"\aGetTask\x12\x17.example.GetTaskRequest\x1a\r.example.Task\"\x00\x129\n" +
+	"\aGetTask\x12\x17.example.GetTaskRequest\x1a\r.example.Task\"\x00\x126\n" +
+	"\bGetTasks\x12\x17.example.GetTaskRequest\x1a\r.example.Task\"\x000\x01\x129\n" +
 	"\n" +
 	"UpdateTask\x12\x1a.example.UpdateTaskRequest\x1a\r.example.Task\"\x00\x12B\n" +
 	"\n" +
@@ -431,16 +432,18 @@ var file_dbpb_dbpb_proto_depIdxs = []int32{
 	6, // 1: example.Task.updated_at:type_name -> google.protobuf.Timestamp
 	1, // 2: example.Postgres.CreateTask:input_type -> example.CreateTaskRequest
 	2, // 3: example.Postgres.GetTask:input_type -> example.GetTaskRequest
-	3, // 4: example.Postgres.UpdateTask:input_type -> example.UpdateTaskRequest
-	4, // 5: example.Postgres.DeleteTask:input_type -> example.DeleteTaskRequest
-	5, // 6: example.Postgres.MarkAsDone:input_type -> example.MarkAsDoneRequest
-	0, // 7: example.Postgres.CreateTask:output_type -> example.Task
-	0, // 8: example.Postgres.GetTask:output_type -> example.Task
-	0, // 9: example.Postgres.UpdateTask:output_type -> example.Task
-	7, // 10: example.Postgres.DeleteTask:output_type -> google.protobuf.Empty
-	0, // 11: example.Postgres.MarkAsDone:output_type -> example.Task
-	7, // [7:12] is the sub-list for method output_type
-	2, // [2:7] is the sub-list for method input_type
+	2, // 4: example.Postgres.GetTasks:input_type -> example.GetTaskRequest
+	3, // 5: example.Postgres.UpdateTask:input_type -> example.UpdateTaskRequest
+	4, // 6: example.Postgres.DeleteTask:input_type -> example.DeleteTaskRequest
+	5, // 7: example.Postgres.MarkAsDone:input_type -> example.MarkAsDoneRequest
+	0, // 8: example.Postgres.CreateTask:output_type -> example.Task
+	0, // 9: example.Postgres.GetTask:output_type -> example.Task
+	0, // 10: example.Postgres.GetTasks:output_type -> example.Task
+	0, // 11: example.Postgres.UpdateTask:output_type -> example.Task
+	7, // 12: example.Postgres.DeleteTask:output_type -> google.protobuf.Empty
+	0, // 13: example.Postgres.MarkAsDone:output_type -> example.Task
+	8, // [8:14] is the sub-list for method output_type
+	2, // [2:8] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name
 	2, // [2:2] is the sub-list for extension extendee
 	0, // [0:2] is the sub-list for field type_name

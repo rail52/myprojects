@@ -19,6 +19,6 @@ export PATH=$PATH:$(go env GOPATH)/bin
 
 ```bash
 protoc -I proto proto/LenOfStr/*.proto\
-       --go_out=./gen/go/ --go_opt=paths=source_relative\
-       --go-grpc_out=./gen/go/ --go-grpc_opt=paths=source_relative
+       --go_out=. --go_opt=paths=source_relative\
+       --go-grpc_out=. --go-grpc_opt=paths=source_relative 
 ```

@@ -14,6 +14,9 @@ service Postgres {
   // Получить задачу по IP
   rpc GetTask (GetTaskRequest) returns (Task) {}  
 
+  // Получение всех задач
+  rpc GetTasks (GetTaskRequest) returns (stream Task) {}  
+
   // обновить задачу
   rpc UpdateTask(UpdateTaskRequest) returns (Task) {}
 

@@ -22,6 +22,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	Postgres_CreateTask_FullMethodName = "/example.Postgres/CreateTask"
 	Postgres_GetTask_FullMethodName    = "/example.Postgres/GetTask"
+	Postgres_GetTasks_FullMethodName   = "/example.Postgres/GetTasks"
 	Postgres_UpdateTask_FullMethodName = "/example.Postgres/UpdateTask"
 	Postgres_DeleteTask_FullMethodName = "/example.Postgres/DeleteTask"
 	Postgres_MarkAsDone_FullMethodName = "/example.Postgres/MarkAsDone"
@@ -35,6 +36,8 @@ type PostgresClient interface {
 	CreateTask(ctx context.Context, in *CreateTaskRequest, opts ...grpc.CallOption) (*Task, error)
 	// Получить задачу по IP
 	GetTask(ctx context.Context, in *GetTaskRequest, opts ...grpc.CallOption) (*Task, error)
+	// Получение всех задач
+	GetTasks(ctx context.Context, in *GetTaskRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Task], error)
 	// обновить задачу
 	UpdateTask(ctx context.Context, in *UpdateTaskRequest, opts ...grpc.CallOption) (*Task, error)
 	// Удалить задачу
@@ -70,6 +73,25 @@ func (c *postgresClient) GetTask(ctx context.Context, in *GetTaskRequest, opts .
 	}
 	return out, nil
 }
+
+func (c *postgresClient) GetTasks(ctx context.Context, in *GetTaskRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Task], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &Postgres_ServiceDesc.Streams[0], Postgres_GetTasks_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[GetTaskRequest, Task]{ClientStream: stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type Postgres_GetTasksClient = grpc.ServerStreamingClient[Task]
 
 func (c *postgresClient) UpdateTask(ctx context.Context, in *UpdateTaskRequest, opts ...grpc.CallOption) (*Task, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
@@ -109,6 +131,8 @@ type PostgresServer interface {
 	CreateTask(context.Context, *CreateTaskRequest) (*Task, error)
 	// Получить задачу по IP
 	GetTask(context.Context, *GetTaskRequest) (*Task, error)
+	// Получение всех задач
+	GetTasks(*GetTaskRequest, grpc.ServerStreamingServer[Task]) error
 	// обновить задачу
 	UpdateTask(context.Context, *UpdateTaskRequest) (*Task, error)
 	// Удалить задачу
@@ -130,6 +154,9 @@ func (UnimplementedPostgresServer) CreateTask(context.Context, *CreateTaskReques
 }
 func (UnimplementedPostgresServer) GetTask(context.Context, *GetTaskRequest) (*Task, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTask not implemented")
+}
+func (UnimplementedPostgresServer) GetTasks(*GetTaskRequest, grpc.ServerStreamingServer[Task]) error {
+	return status.Errorf(codes.Unimplemented, "method GetTasks not implemented")
 }
 func (UnimplementedPostgresServer) UpdateTask(context.Context, *UpdateTaskRequest) (*Task, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateTask not implemented")
@@ -196,6 +223,17 @@ func _Postgres_GetTask_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	return interceptor(ctx, in, info, handler)
 }
+
+func _Postgres_GetTasks_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(GetTaskRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(PostgresServer).GetTasks(m, &grpc.GenericServerStream[GetTaskRequest, Task]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type Postgres_GetTasksServer = grpc.ServerStreamingServer[Task]
 
 func _Postgres_UpdateTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateTaskRequest)
@@ -279,6 +317,12 @@ var Postgres_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Postgres_MarkAsDone_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "GetTasks",
+			Handler:       _Postgres_GetTasks_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "dbpb/dbpb.proto",
 }
